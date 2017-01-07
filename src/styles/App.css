@@ -1,0 +1,170 @@
+
+body {
+  background-color: black;
+  -webkit-animation: AnimationName 30s ease infinite;
+  -moz-animation: AnimationName 30s ease infinite;
+  animation: AnimationName 30s ease infinite;
+
+  transition:0.2s;
+
+  display:flex;
+  flex-direction: column;
+
+/*  background-image:url('../images/fire.gif');
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:90px auto;*/
+}
+
+.particles{
+  position:absolute;
+  top:100px;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.container{
+  order:1;
+
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+}
+
+.songName{
+  text-align: center;
+  color:white;
+}
+
+.contactButton{
+  width:400px;
+  height:40px;
+  color:white;
+  background-color: #111111;
+  text-align: center;
+  font-family: helveticaneue;
+}
+
+.playButton{
+  height:40px;
+  width:40px;
+  background-image:url('../images/play.png');
+  background-size: 40px 40px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.4s;
+  margin:auto;
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.progress{
+  order:2;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top:-30px;
+}
+
+.bar{
+  order:1;
+  width:400px;
+  height:3px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top:12px;
+  background-color: #222222;
+  border-radius: 1.5px;
+}
+
+.progress-bar{
+  background-color: #999999;
+  height:3px;
+  width:0;
+  transition: width 1s, color 0.5s;
+  border-radius: 1.5px;
+}
+
+.progress-bar:hover{
+  background-color: #9013FE;
+}
+
+.watch{
+  color:#888888;
+  text-align: center;
+  font-size: 0.6em;
+  padding-top:15px;
+  order:0;
+}
+
+.watch.total{
+  order:2;
+}
+
+.playButton.pause{
+  background-image:url('../images/pause.png');
+}
+
+.playButton:hover{
+  opacity: 1;
+}
+
+.footer{
+  margin-top:auto;
+  order:3;
+  justify-content: center;
+  
+  color:#111111;
+  font-size:0.6em;
+  margin-bottom:15px;
+}
+
+.shim{
+  flex-grow: 1;
+}
+
+.box{
+  order:0;
+  position:relative;
+  margin-bottom:300px;
+  border-bottom:0.5px solid #111111;
+}
+
+.smoke{
+  /*border:1px solid orange;*/
+}
+
+.logo{
+  /*border:1px solid green;*/
+  width:210px;
+  height:63px;
+  margin:0 auto;
+  background-size: 210px 63px;
+  background-image:url('../images/karoak-clear.png');
+  background-repeat:no-repeat;
+  background-position: bottom center;
+  /*background-image:url('../images/fire.gif');*/
+
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+.fire{
+  width:366px;
+  height:391px;
+  margin:0 auto;
+  background-size: 366px 391px;
+  background-image:url('../images/fire.gif');
+}
