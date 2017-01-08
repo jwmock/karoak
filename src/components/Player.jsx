@@ -2,12 +2,21 @@ require('normalize.css/normalize.css')
 require('styles/App.css')
 
 import React from 'react'
+// import { Sparklines, SparklinesLine } from 'react-sparklines';
+import Visualizer from './Visualizer.jsx'
 
 class Player extends React.Component {
 
 	componentDidMount(){
 	 this.didTogglePlay()
     setInterval(this.updateTimer, 1000)	
+
+    document.onkeypress = (e) => {
+        e = e || window.event;
+        if(e.keyCode == 32){
+          this.didTogglePlay()
+        }
+    };
 	}
 
   updateTimer = () => {
@@ -21,7 +30,75 @@ class Player extends React.Component {
     this.state = {
       player: new Audio('../audio/demo.mp3'),
       playing: false,
-      currentTime:0
+      currentTime:0,
+      currentData: []
+    }
+
+    this.configureAnalyser()
+  }
+
+  configureAnalyser = () => {
+    let ctx = this.getAudioContext()
+    let audio = this.state.player
+
+    let audioSrc = ctx.createMediaElementSource(audio);
+    let analyser = ctx.createAnalyser();
+    // we have to connect the MediaElementSource with the analyser 
+    audioSrc.connect(analyser);
+    audioSrc.connect(ctx.destination);
+    // we could configure the analyser: e.g. analyser.fftSize (for further infos read the spec)
+   
+    console.log('Analyser:', analyser)
+    
+    this.renderFrame(analyser);
+  }
+
+  renderFrame = (analyser) => {
+     requestAnimationFrame(()=>{this.renderFrame(analyser)});
+
+     if( analyser ){
+       let frequencyData = new Uint8Array(analyser.frequencyBinCount);
+       
+       // update data in frequencyData
+       analyser.fftSize = 1024
+       analyser.smoothingTimeConstant = 0.3
+       analyser.getByteFrequencyData(frequencyData);
+
+       const data = Array.from(frequencyData)
+
+       // console.log('data', data)
+
+       // const collapsedData = this.collapseData(data, 100)
+
+       this.setState({currentData: data})
+       // render frame based on values in frequencyData
+       // console.log(frequencyData.slice(20))
+     }
+  }
+
+  // collapseData = (data, size) => {
+  //   let newData = []
+  //   const sampleSize = Math.floor(data.count / size)
+  //   console.log('size', data.count)
+    
+  //   return data
+  // }
+
+  getAudioContext = () => {
+    var AudioContext = window.AudioContext // Default
+    || window.webkitAudioContext // Safari and old versions of Chrome
+    || false; 
+
+    if (AudioContext) {
+        // Do whatever you want using the Web Audio API
+        var ctx = new AudioContext;
+        return ctx
+        // ...
+    } else {
+        // Web Audio API is not supported
+        // Alert the user
+        alert("Sorry, but the Web Audio API is not supported by your browser. Please, consider upgrading to the latest version or downloading Google Chrome or Mozilla Firefox");
+        return false
     }
   }
 
@@ -59,7 +136,9 @@ class Player extends React.Component {
     const style = {width:percent+"%"}
     
     return (
-      <div>
+      <div className="player-container">
+        <Visualizer data={this.state.currentData} numBars={150}/>
+
         <div className="progress">
           <div className="watch">{this.timeString(this.state.currentTime)}</div>
           <div className="bar">
@@ -67,7 +146,9 @@ class Player extends React.Component {
           </div>
           <div className="watch total">{this.timeString(Math.round(this.state.player.duration||0))}</div>
         </div>
+
         <div className={buttonClass} onClick={this.didTogglePlay}/>
+        
       </div>
     );
   }

@@ -1,0 +1,48 @@
+
+.visualizer-container{
+	/*width:200px;*/
+	height:100px;
+	/*border:1px solid orange;*/
+
+	order:0;
+	
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-align-items: top;
+	align-items: top;
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+
+.visualizer-bar{
+	order:0;
+	width:1px;
+	margin-right:3px;
+	margin-left:3px;
+	background-color: white;
+	transition: 0.15s;
+	opacity: 0.25;
+
+	flex-grow: 1;
+ 	flex-shrink: 1;
+
+	/* IE10+ */ 
+background-image: -ms-linear-gradient(top, #FFFFFF 0%, #000000 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #FFFFFF 0%, #000000 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #FFFFFF 0%, #000000 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(100, #000000));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #000000 100%);
+
+/* W3C Markup */ 
+background-image: linear-gradient(to bottom, #FFFFFF 0%, #000000 100%);
+}

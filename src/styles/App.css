@@ -66,14 +66,39 @@ body {
   margin-bottom:10px;
 }
 
+.muteButton{
+  height:40px;
+  width:40px;
+  background-image:url('../images/mute.png');
+  background-size: 11px 10px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.4s;
+  margin:auto;
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.player-container{
+  order:1;
+  flex-grow: 1;
+  /*display:flex;*/
+
+/*  -webkit-align-items: top;
+  align-items: top;
+  -webkit-justify-content: center;
+  justify-content: center;*/
+}
+
 .progress{
-  order:2;
+  margin-top:100px;
+  order:1;
   display:flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-top:-30px;
 }
 
 .bar{
@@ -136,7 +161,7 @@ body {
 .box{
   order:0;
   position:relative;
-  margin-bottom:300px;
+  /*margin-bottom:300px;*/
   border-bottom:0.5px solid #111111;
 }
 
