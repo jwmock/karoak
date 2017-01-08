@@ -1,6 +1,6 @@
 {
   "name": "karoak",
-  "version": "4.0.5",
+  "version": "4.0.0",
   "description": "A base skeleton template for react and webpack without task runners",
   "main": "server.js",
   "scripts": {
