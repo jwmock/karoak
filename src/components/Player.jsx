@@ -9,7 +9,7 @@ class Player extends React.Component {
 
 	componentDidMount(){
 	 this.didTogglePlay()
-    setInterval(this.updateTimer, 1000)	
+    setInterval(this.updateTimer, 100)	
 
     document.onkeypress = (e) => {
         e = e || window.event;
@@ -21,7 +21,7 @@ class Player extends React.Component {
 
   updateTimer = () => {
     const player = this.state.player
-    this.setState({currentTime:Math.round(player.currentTime)})
+    this.setState({currentTime:player.currentTime})
   }
 
   constructor(props) {
@@ -125,24 +125,34 @@ class Player extends React.Component {
     return minutes+":"+shim+seconds
   }
 
+  clickedTrackBar = (e) => {
+    // console.log('event', e.nativeEvent.offsetX)
+    const player = this.state.player
+    const percent = e.nativeEvent.offsetX / this.refs.trackBar.offsetWidth
+    const newTime = Math.floor(player.duration * percent)
+    player.currentTime = newTime
+  }
+
   render() {
     let buttonClass = "playButton"
     if(this.state.playing == true){
       buttonClass += " pause"
     }
 
-    const percent = Math.round((this.state.currentTime / this.state.player.duration)*100)
+    const percent = (this.state.currentTime / this.state.player.duration)*100
     // debugger
     const style = {width:percent+"%"}
     
     return (
       <div className="player-container">
-        <Visualizer data={this.state.currentData} numBars={150}/>
+        <Visualizer boostHighs={true} data={this.state.currentData} numBars={150}/>
 
         <div className="progress">
-          <div className="watch">{this.timeString(this.state.currentTime)}</div>
-          <div className="bar">
-            <div style={style} className="progress-bar">&nbsp;</div>
+          <div className="watch">{this.timeString(Math.round(this.state.currentTime))}</div>
+          <div className="bar-container" onClick={this.clickedTrackBar}>
+            <div className="bar" ref="trackBar" onClick={this.clickedTrackBar}>
+              <div style={style} className="progress-bar">&nbsp;</div>
+            </div>
           </div>
           <div className="watch total">{this.timeString(Math.round(this.state.player.duration||0))}</div>
         </div>

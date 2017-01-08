@@ -40,7 +40,19 @@ class Visualizer extends React.Component {
         opacity = (numBars-i)/fadeSize
       }
 
-      const height = Math.round((value / 255) * 100)
+      // make the center bow down a little bit more
+      const fromCenter = 1-(Math.abs((numBars/2)-i) / (numBars/2))
+      let multiplier = 0.5 + 1.25 * fromCenter
+
+      // boost the high end a little for symmetry
+      const percentProgress = i / numBars
+      let highMultplier = 1
+      if(percentProgress > 0.75 && this.props.boostHighs){
+        highMultplier = 1.4
+      }
+
+
+      const height = Math.round((value / 255) * 100) * multiplier * highMultplier
       const heightString = height + "%"
       
       i++
